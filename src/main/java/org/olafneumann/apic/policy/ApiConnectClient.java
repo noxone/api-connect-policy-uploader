@@ -3,6 +3,7 @@ package org.olafneumann.apic.policy;
 import static org.olafneumann.apic.policy.IOUtils.createUnsafeOkHttpClientBuilder;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import okhttp3.OkHttpClient;
 
@@ -33,7 +34,7 @@ class ApiConnectClient {
 		throw new UnsupportedOperationException("login() is not yet implemented");
 	}
 
-	public boolean uploadPolicy(Path policyZipFile) {
+	public Optional<String> uploadPolicy(Path policyZipFile) {
 		throw new UnsupportedOperationException("uploadPolicy() is not yet implemented");
 	}
 
