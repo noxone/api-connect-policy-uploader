@@ -5,6 +5,7 @@ import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +19,7 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.spi.BooleanOptionHandler;
 import org.kohsuke.args4j.spi.PathOptionHandler;
+import org.kohsuke.args4j.spi.URLOptionHandler;
 
 public class StartOptions {
 
@@ -43,8 +45,9 @@ public class StartOptions {
 	private StartOptions() {
 	}
 
-	@Option(name = "-s", aliases = { "--server" }, required = true, usage = "The server where to install the policy")
-	private String server;
+	@Option(name = "-s", aliases = {
+			"--server" }, required = true, handler = URLOptionHandler.class, usage = "The server where to install the policy")
+	private URL server;
 
 	@Option(name = "-u", aliases = { "--username" }, required = false, forbids = { "-ch", "-cf" }, depends = {
 			"-s" }, usage = "The username to use for policy installation")
@@ -77,7 +80,7 @@ public class StartOptions {
 	@Option(name = "--ignoreSSL", required = false, usage = "Ignore SSL check while policy installation", handler = BooleanOptionHandler.class)
 	private boolean ignoreSsl = false;
 
-	public String getServer() {
+	public URL getServer() {
 		return server;
 	}
 
