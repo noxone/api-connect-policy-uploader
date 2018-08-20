@@ -1,5 +1,10 @@
 package org.olafneumann.apic.policy;
 
+import java.io.UncheckedIOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -14,6 +19,29 @@ import okhttp3.OkHttpClient;
 public final class IOUtils {
 	private IOUtils() {
 		throw new RuntimeException("Do not create instances of this class");
+	}
+
+	public static URL createURL(String urlString) {
+		try {
+			return new URL(urlString);
+		} catch (MalformedURLException e) {
+			throw new UncheckedIOException(e);
+		}
+	}
+
+	public static String createXWwwUrlEncoded(String... strings) {
+		try {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < strings.length; i += 2) {
+				if (i > 0) {
+					sb.append("&");
+				}
+				sb.append(strings[i]).append("=").append(URLEncoder.encode(strings[i + 1], "UTF-8"));
+			}
+			return sb.toString();
+		} catch (UnsupportedEncodingException e) {
+			throw new UncheckedIOException(e);
+		}
 	}
 
 	public static OkHttpClient.Builder createUnsafeOkHttpClientBuilder() {
