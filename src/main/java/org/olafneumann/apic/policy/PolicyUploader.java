@@ -1,11 +1,12 @@
 package org.olafneumann.apic.policy;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.olafneumann.apic.policy.StartOptions.Credentials;
 
 public class PolicyUploader {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// parse command line options
 		StartOptions options = StartOptions.parse(args);
 		// if command line options fail: shut down
