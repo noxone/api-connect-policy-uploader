@@ -6,10 +6,12 @@ import static org.olafneumann.apic.policy.IOUtils.createXWwwUrlEncoded;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -39,21 +41,29 @@ class ApiConnectClient {
 	}
 
 	public boolean login(String username, String password) throws IOException {
-		RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),
+		final RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),
 				createXWwwUrlEncoded("j_username", username, //
 						"j_password", password, //
 						"login", "true"));
-		Request request = new Request.Builder()//
+		final Request request = new Request.Builder()//
 				.post(body)//
 				.url(getServerLoginUrl())//
 				.build();
-		Response response = client.newCall(request).execute();
+		final Response response = client.newCall(request).execute();
 		// Upon successful login API Connect server returns 302. If the login was not
 		// successful the server will return 200.
 		return response.code() == 302;
 	}
 
-	public Optional<String> uploadPolicy(Path policyZipFile) {
+	public Optional<String> uploadPolicy(Path policyZipFile) throws IOException {
+		final RequestBody body = MultipartBody.create(MediaType.get(Files.probeContentType(policyZipFile)),
+				policyZipFile.toFile());
+		final Request request = new Request.Builder()//
+				.post(body)//
+				.url(getPolicyUploadUrl())//
+				.header("Content-type", "multipart/form-data")//
+				.build();
+		final Response response = client.newCall(request).execute();
 		throw new UnsupportedOperationException("uploadPolicy() is not yet implemented");
 	}
 
