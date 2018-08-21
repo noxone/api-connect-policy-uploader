@@ -45,39 +45,41 @@ public class StartOptions {
 	private StartOptions() {
 	}
 
-	@Option(name = "-s", aliases = {
-			"--server" }, required = true, handler = URLOptionHandler.class, usage = "The server where to install the policy")
+	@Option(name = "-s", aliases = { "--server" }, required = true, handler = URLOptionHandler.class,
+			usage = "The server where to install the policy")
 	private URL server;
 
-	@Option(name = "-u", aliases = { "--username" }, required = false, forbids = { "-ch", "-cf" }, depends = {
-			"-s" }, usage = "The username to use for policy installation")
+	@Option(name = "-u", aliases = { "--username" }, required = false, forbids = { "-ch", "-cf" }, depends = { "-p" },
+			usage = "The username to use for policy installation")
 	private String username = null;
 
-	@Option(name = "-p", aliases = { "--password" }, required = false, forbids = { "-ch", "-cf" }, depends = {
-			"-u" }, usage = "The password to use for policy installation")
+	@Option(name = "-p", aliases = { "--password" }, required = false, forbids = { "-ch", "-cf" }, depends = { "-u" },
+			usage = "The password to use for policy installation")
 	private String password = null;
 
-	@Option(name = "-ch", aliases = { "--credentialsHttp" }, required = false, forbids = { "-u", "-p",
-			"-cf" }, usage = "The cretentials to be used for policy installation in HTTP authentication format. Format: base64(username:password)")
+	@Option(name = "-ch", aliases = { "--credentialsHttp" }, required = false, forbids = { "-u", "-p", "-cf" },
+			usage = "The cretentials to be used for policy installation in HTTP authentication format. Format: base64(username:password)")
 	private String credentialsHttp = null;
 
-	@Option(name = "-cf", aliases = { "--credentialsFile" }, required = false, forbids = { "-u", "-p",
-			"-ch" }, usage = "Path to file containing credentials information in HTTP authentication format", handler = PathOptionHandler.class)
+	@Option(name = "-cf", aliases = { "--credentialsFile" }, required = false, forbids = { "-u", "-p", "-ch" },
+			usage = "Path to file containing credentials information in HTTP authentication format",
+			handler = PathOptionHandler.class)
 	private Path credentialsFile = null;
 
-	@Option(name = "-o", aliases = { "--organization" }, required = true, depends = {
-			"-u" }, usage = "The API Connect organization where to install the policy")
+	@Option(name = "-o", aliases = { "--organization" }, required = true,
+			usage = "The API Connect organization where to install the policy")
 	private String organization;
 
-	@Option(name = "-c", aliases = {
-			"--catalog" }, required = true, usage = "The API Connect catalog where to install the policy")
+	@Option(name = "-c", aliases = { "--catalog" }, required = true,
+			usage = "The API Connect catalog where to install the policy")
 	private String catalog;
 
-	@Option(name = "-pf", aliases = {
-			"--policyFile" }, required = true, usage = "Path to file containing policy definition", handler = PathOptionHandler.class)
+	@Option(name = "-pf", aliases = { "--policyFile" }, required = true, usage = "Path to file containing policy definition",
+			handler = PathOptionHandler.class)
 	private Path policyFile;
 
-	@Option(name = "--ignoreSSL", required = false, usage = "Ignore SSL check while policy installation", handler = BooleanOptionHandler.class)
+	@Option(name = "--ignoreSSL", required = false, usage = "Ignore SSL check while policy installation",
+			handler = BooleanOptionHandler.class)
 	private boolean ignoreSsl = false;
 
 	public URL getServer() {
@@ -119,8 +121,8 @@ public class StartOptions {
 	Map<String, String> getProperties() {
 		try {
 			return Stream//
-					.of(Introspector.getBeanInfo(getClass(), Object.class).getPropertyDescriptors())//
-					.collect(Collectors.toMap(PropertyDescriptor::getName, pd -> get(pd.getReadMethod())));
+				.of(Introspector.getBeanInfo(getClass(), Object.class).getPropertyDescriptors())//
+				.collect(Collectors.toMap(PropertyDescriptor::getName, pd -> get(pd.getReadMethod())));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

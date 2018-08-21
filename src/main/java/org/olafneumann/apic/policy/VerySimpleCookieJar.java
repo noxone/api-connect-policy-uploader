@@ -7,7 +7,7 @@ import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 
-public class VerySimpleCookieJar implements CookieJar {
+class VerySimpleCookieJar implements CookieJar {
 	private List<Cookie> cookies;
 
 	@Override
@@ -20,6 +20,6 @@ public class VerySimpleCookieJar implements CookieJar {
 		if (cookies != null) {
 			return cookies;
 		}
-		return new ArrayList<>();
+		return new ArrayList<Cookie>();
 	}
 }
