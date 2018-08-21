@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +43,7 @@ class ApiConnectClient {
 			builder = new OkHttpClient.Builder();
 		}
 		builder = builder.cookieJar(new VerySimpleCookieJar());
-		//builder.followRedirects(false); // API Connect responds with 302 upon successful login
+		builder.readTimeout(1, TimeUnit.MINUTES);
 
 		this.client = builder.build();
 	}
@@ -82,7 +83,7 @@ class ApiConnectClient {
 			.build();
 		final Response response = client.newCall(request).execute();
 		int code = response.code();
-		if (code == 200) {
+		if (code == 201) {
 			return Optional.empty();
 		} else {
 			return Optional.of(getErrorMessage(response.body()));
