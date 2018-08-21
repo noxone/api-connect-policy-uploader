@@ -1,15 +1,15 @@
 # API Connect policy uploader
-Programmatically upload custom policies to an API Connect catalog
+Programmatically upload custom policies to an API Connect catalog.
 
 The product IBM API Connect in version 5 does not support uploading of custom policies via restful services. If you want to create organizations or catalogs dynamically you might need to install policies dynamically, too.
 This application will help you to do this task.
 
-It was created by capturing the HTTP transprot between the browser and the API Connect management UI and then simulating the needed calls programmatically.
+It was created by capturing the HTTP transport between the browser and the API Connect management UI and then simulating the needed calls programmatically.
 
 ## Usage
 ### Parameters
 
-To upload a policy package all neede files in a ZIP file just as if you want to upload them via your web browser. Then call this small application and specify the neccessary parameters:
+To upload a policy package all needed files in a ZIP file just as if you want to upload them via your web browser. Then call this small application and specify the necessary parameters:
 
      -s (--server) URL        : The server where to install the policy
      -o (--organization) VAL  : The API Connect organization where to install the policy
@@ -25,7 +25,7 @@ You will also need to specify username and password for accessing the management
 
 Or use the base64 of ``username:password`` in the command line just like any HTTP basic authentication: 
 
-    -ch (--credentialsHttp) VAL  : The cretentials to be used for policy installation in HTTP authentication format. Format: base64(username:password)
+    -ch (--credentialsHttp) VAL  : The credentials to be used for policy installation in HTTP authentication format. Format: base64(username:password)
 
 Or provide the credentials in a file and provide the file name as command line parameter. The content of the file is expected to be base64 of ``username:password`` just like basic HTTP authentication:
 
