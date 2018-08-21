@@ -32,6 +32,8 @@ Or provide the credentials in a file and provide the file name as command line p
     -cf (--credentialsFile) PATH : Path to file containing credentials information in HTTP authentication format
 
 ### Example
-An example for the parameters could look like this: ``-s https://api-management-deve.hlag.com -u testuser -p password  -o 5ad6e357e4b0418c227abcdd -c 5b69846aeff241b3069aecb4 --ignoreSSL -pf "./custom-policies/logPolicy/writeToDatapowerLog.zip"``
+An example for uploading a file called `./custom-policies/logPolicy/writeToDatapowerLog.zip./custom-policies/logPolicy/writeToDatapowerLog.zip` could look like this:
+
+    java -jar policy-uploader-0.1.jar -s https://api-management-deve.hlag.com -u testuser -p password  -o 5ad6e357e4b0418c227abcdd -c 5b69846aeff241b3069aecb4 --ignoreSSL -pf "./custom-policies/logPolicy/writeToDatapowerLog.zip"
 
 
