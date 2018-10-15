@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/noxone/api-connect-policy-uploader.svg?branch=master)](https://travis-ci.org/noxone/api-connect-policy-uploader)
+
 # API Connect policy uploader
 Programmatically upload custom policies to an API Connect catalog.
 
